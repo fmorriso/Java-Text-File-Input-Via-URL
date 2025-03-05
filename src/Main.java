@@ -29,6 +29,18 @@ public class Main {
         return String.format("https://drive.google.com/uc?export=download&id=%s", link.substring(idxStart, idxEnd) );
     }
 
+
+    /** Convert a shared, view-only, public link to a text file stored on DropBox to one that can be read
+     * @param link - raw link to a public, shared, view-only text file stored on DropBox
+     * @return A link that will allow the text file to be read.
+     * @implNote IMPORTANT NOTE: When reading a text file from DropBox, you MUST change the end of the generated
+     * public link from &dl=0 to &dl=1; otherwise, you get HTML instead of text.
+     * WORKS: final String fileUrl = "https://www.dropbox.com/s/t8vh8a1rgq41d86/StateData.csv?st=p2b1ypzw&dl=1";
+     */
+    private static String convertDropBoxPublicLinkToUrl(String link) {
+        return link;
+    }
+
     public static void main(String[] args) {
         // FAILS: final String fileUrl = "https://1drv.ms/x/s!Ash3pFpgn-Cnyr18zLwmbT6q_S0Psg?e=mk0aeT";
         // FAILS: final String fileUrl = "https://onedrive.live.com/download?id=A7E09F605AA477C8!1220348&resid=A7E09F605AA477C8!1220348&ithint=file%2cxlsx&authkey=!AMy8Jm0-qv0tD7I&wdo=2&cid=a7e09f605aa477c8";
@@ -52,7 +64,7 @@ public class Main {
         String link = "https://drive.google.com/file/d/1Ul-vu8XCKEUkCIrnAGLNOvOvpCN6ypna/view?usp=sharing";
         String filename = "args[0]";
         String fileUrl = convertGoogleDrivePublicLinkToUrl(link);
-        System.out.format("url=%s%n", fileUrl);
+        System.out.format("Google Drive url=%s%n", fileUrl);
 
         // NOTICE how the Google Drive shared public view-only link needs to be modified below.
         // Without this change, you get HTML instead of the actual text:
