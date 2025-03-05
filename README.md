@@ -1,5 +1,5 @@
 # Java Text File Read
-An example of reading a text file stored on OneDrive and shared publicly
+An example of reading a text file stored on DropBox and shared publicly
 via a URL
 
 ## Tools Used
