@@ -41,6 +41,28 @@ public class Main {
         return link;
     }
 
+    private static int tryParseInt(String possibleInt) {
+        int result;
+        try {
+            result = Integer.parseInt(possibleInt);
+        } catch (NumberFormatException e) {
+            result = 0;
+        }
+        return result;
+    }
+
+    private static OneItem extractItemFromText(String line) {
+        String[] tokens = line.split(","); // Split line by commas
+        String location = tokens[0];
+        int year = tryParseInt(tokens[1]);
+        String month = tokens[2];
+        String period = tokens[3];
+        String indicator = tokens[4];
+        int dataValue = tryParseInt(tokens[5]);
+        return new OneItem(location, year, month, period, indicator, dataValue);
+    }
+
+
     public static void main(String[] args) {
         // FAILS: final String fileUrl = "https://1drv.ms/x/s!Ash3pFpgn-Cnyr18zLwmbT6q_S0Psg?e=mk0aeT";
         // FAILS: final String fileUrl = "https://onedrive.live.com/download?id=A7E09F605AA477C8!1220348&resid=A7E09F605AA477C8!1220348&ithint=file%2cxlsx&authkey=!AMy8Jm0-qv0tD7I&wdo=2&cid=a7e09f605aa477c8";
@@ -82,7 +104,8 @@ public class Main {
             BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
             String line;
             while ((line = reader.readLine()) != null) {
-                System.out.println(line);
+                OneItem oneItem = extractItemFromText(line);
+                System.out.println(oneItem);
             }
             reader.close();
         } catch (Exception e) {
